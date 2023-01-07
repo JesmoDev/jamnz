@@ -8,6 +8,19 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: "autoUpdate",
+      includeAssets: ["bill-fill.svg", "JamnzLogo.png"],
+      manifest: {
+        name: "Jamnz",
+        icons: [
+          {
+            src: "JamnzLogo.png",
+            sizes: "256x256",
+            type: "image/png",
+          },
+        ],
+        start_url: "/",
+        display: "standalone",
+      },
       devOptions: {
         enabled: true,
       },
