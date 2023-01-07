@@ -1,34 +1,60 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import { useState } from "react";
+import "./App.scss";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const DATA_FROM_API = {
+    currency_name: "Danish krone",
+    rate: "4.3977",
+    rate_for_amount: "439.7705",
+  };
+
+  const PreciseRate = Number.parseFloat(DATA_FROM_API.rate_for_amount) / 100;
+
+  const CLEAN_DATA_A = {
+    name: "Danish Kroner",
+    code: "DKK",
+    rate: 1 / PreciseRate,
+  };
+
+  const CLEAN_DATA_B = {
+    name: "New Zealand dollar",
+    code: "NZD",
+    rate: PreciseRate,
+  };
+
+  const [from, setFrom] = useState(CLEAN_DATA_B);
+  const [to, setTo] = useState(CLEAN_DATA_A);
+
+  const [amount, setAmount] = useState<Number | undefined>();
+
+  const onAmountChange = (e: any) => {
+    setAmount(Number.parseFloat(e.target.value));
+  };
+
+  const getRate = (rate: number) => {
+    const result = rate * (typeof amount === "number" ? amount : 0);
+
+    return Number.isNaN(result) ? "0.00" : result.toFixed(2);
+  };
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="app">
+      <div className="main">
+        <input autoFocus type="number" onChange={onAmountChange} />
+        <div className="conversion">
+          <div className="rate">
+            {getRate(from.rate)} <span className="code">{to.code}</span>
+          </div>
+        </div>
+
+        <div className="conversion">
+          <div className="rate">
+            {getRate(to.rate)} <span className="code">{from.code}</span>
+          </div>
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

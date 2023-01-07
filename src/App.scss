@@ -1,0 +1,46 @@
+.app {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 16px;
+}
+.main {
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+  gap: 16px;
+}
+.code {
+  color: var(--color-text-fade);
+  font-size: 1rem;
+}
+.rate {
+  font-size: 2rem;
+}
+
+input {
+  box-sizing: border-box;
+  width: 100%;
+  background: none;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  outline: none;
+  padding: 12px 16px;
+  font-size: 2rem;
+  color: inherit;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
