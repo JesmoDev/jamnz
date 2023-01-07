@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.scss";
 
 function App() {
@@ -27,6 +27,14 @@ function App() {
 
   const [amount, setAmount] = useState<Number | undefined>();
 
+  useEffect(() => {
+    const input = document.querySelector("input");
+    if (input) {
+      input.click();
+      input.focus();
+    }
+  }, []);
+
   const onAmountChange = (e: any) => {
     setAmount(Number.parseFloat(e.target.value));
   };
@@ -40,7 +48,7 @@ function App() {
   return (
     <div className="app">
       <div className="main">
-        <input autoFocus type="number" onChange={onAmountChange} />
+        <input type="number" onChange={onAmountChange} />
         <div className="conversion">
           <div className="rate">
             {getRate(from.rate)} <span className="code">{to.code}</span>
